@@ -106,7 +106,7 @@ class Budget(models.Model):
     budget_name = models.CharField(max_length=255)
 
     def __str__(self):
-        return '%s (%s - %s)' % (self.client, self.start_date, self.end_date)
+        return '%s - %s' % (self.client, self.budget_name)
 
     class Meta:
         verbose_name = "Budget"
@@ -120,7 +120,7 @@ class BudgetCategory(models.Model):
     category = models.ForeignKey(ExpenseCategory, related_name='budget_categories', on_delete=models.PROTECT)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 
-    def __str(self):
+    def __str__(self):
         return '%s - %s: $%s' % (self.budget, self.category, self.amount)
 
     class Meta:
