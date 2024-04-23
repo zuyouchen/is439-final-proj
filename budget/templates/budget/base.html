@@ -15,13 +15,13 @@
     {% block heading %}
     {% endblock %}
     <nav>
-      <a href="">Home</a>
-      <a href="">About</a>
-      <a href="">Clients</a>
-      <a href="">Budgets</a>
-      <a href="">Incomes</a>
-      <a href="">Expenses</a>
-      <a href="">Advisors</a>
+      <a href="{% url 'home_urlpattern' %}">Home</a>
+      <a href="{% url 'about_urlpattern' %}">About</a>
+      <a href="{% url 'budget_client_list_urlpattern' %}">Clients</a>
+      <a href="{% url 'budget_budget_list_urlpattern' %}">Budgets</a>
+      <a href="{% url 'budget_income_list_urlpattern' %}">Incomes</a>
+      <a href="{% url 'budget_expense_list_urlpattern' %}">Expenses</a>
+      <a href="{% url 'budget_advisor_list_urlpattern' %}">Advisors</a>
     </nav>
 </header>
 
@@ -29,6 +29,13 @@
     {% block content %}
     {% endblock %}
 </main>
+
+<footer>
+    <p>
+        Credit to <a href="https://simplecss.org/news">Simple.css</a> for styling.
+        <br>Simple.css was created by <a href="https://kevquirk.com">Kev Quirk</a> and is licensed under the MIT license.
+    </p>
+</footer>
 
 </body>
 </html>

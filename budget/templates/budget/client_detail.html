@@ -1,0 +1,54 @@
+{% extends 'budget/base.html' %}
+{% block title %}
+    Client Detail
+{% endblock %}
+
+{% block heading %}
+    <h1>Client - {{ client }}</h1>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h3>Client Information</h3>
+        <table>
+            <tr>
+                <td>First Name:</td>
+                <td>{{ client.first_name }}</td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>{{ client.last_name }}</td>
+            </tr>
+            <tr>
+                <td>Advisor:</td>
+                <td>{{ client.advisor }}</td>
+            </tr>
+        </table>
+    </section>
+    <section>
+        <h3>Expenses</h3>
+        <ul>
+            {% for expense in expense_list %}
+                <li><a href="{{ expense.get_absolute_url }}">{{ expense }}</a></li>
+            {% empty %}
+                <li><em>There are currently no expenses associated with this client.</em></li>
+            {% endfor %}
+        </ul>
+        <h3>Incomes</h3>
+        <ul>
+            {% for income in income_list %}
+                <li><a href="{{ income.get_absolute_url }}">{{ income }}</a></li>
+            {% empty %}
+                <li><em>There are currently no incomes associated with this client.</em></li>
+            {% endfor %}
+        </ul>
+        <h3>Budgets</h3>
+            <ul>
+            {% for budget in budget_list %}
+                <li><a href="{{ budget.get_absolute_url }}">{{ budget }}</a></li>
+            {% empty %}
+                <li><em>There are currently no budgets associated with this client.</em></li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

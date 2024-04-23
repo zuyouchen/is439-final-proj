@@ -1,0 +1,21 @@
+{% extends 'budget/base.html' %}
+{% block title %}
+    Advisor List
+{% endblock %}
+
+{% block heading %}
+    <h1>Advisors</h1>
+{% endblock %}
+
+{% block content %}
+    <a class="button" href="">Create New Advisor</a>
+
+    <ul>
+        {% for advisor in advisor_list %}
+            <li><a href="{{ advisor.get_absolute_url }}">{{ advisor }}</a></li>
+        {% empty %}
+            <li><em>There are currently no advisors available.</em></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

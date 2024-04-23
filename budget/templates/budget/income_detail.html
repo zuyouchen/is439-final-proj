@@ -1,0 +1,41 @@
+{% extends 'budget/base.html' %}
+{% block title %}
+    Income Detail
+{% endblock %}
+
+{% block heading %}
+    <h1>Income - {{ income }}</h1>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h3>Income Information</h3>
+        <table>
+            <tr>
+                <td>Client:</td>
+                <td><a href="{{ income.client.get_absolute_url }}">{{ income.client }}</a></td>
+            </tr>
+            <tr>
+                <td>Amount:</td>
+                <td>{{ income.amount }}</td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td>{{ income.description }}</td>
+            </tr>
+            <tr>
+                <td>Date:</td>
+                <td>{{ income.date }}</td>
+            </tr>
+            <tr>
+                <td>Frequency:</td>
+                <td>{{ income.frequency }}</td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td>{{ income.category }}</td>
+            </tr>
+        </table>
+    </section>
+    <p><mark>TODO:</mark> Add href to Freq/Category for filtering capabilities</p>
+{% endblock %}

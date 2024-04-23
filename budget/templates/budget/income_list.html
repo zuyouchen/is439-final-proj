@@ -1,0 +1,21 @@
+{% extends 'budget/base.html' %}
+{% block title %}
+    Income List
+{% endblock %}
+
+{% block heading %}
+    <h1>Incomes</h1>
+{% endblock %}
+
+{% block content %}
+    <a class="button" href="">Create New Income</a>
+
+    <ul>
+        {% for income in income_list %}
+            <li><a href="{{ income.get_absolute_url }}">{{ income }}</a></li>
+        {% empty %}
+            <li><em>There are currently no incomes available.</em></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

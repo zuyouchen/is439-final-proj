@@ -1,0 +1,34 @@
+{% extends 'budget/base.html' %}
+{% block title %}
+    Advisor Detail
+{% endblock %}
+
+{% block heading %}
+    <h1>Advisor - {{ advisor }}</h1>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h3>Advisor Information</h3>
+        <table>
+            <tr>
+                <td>First Name:</td>
+                <td>{{ advisor.first_name }}</td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>{{ advisor.last_name }}</td>
+            </tr>
+        </table>
+    </section>
+    <section>
+        <h3>Clients</h3>
+        <ul>
+            {% for client in client_list %}
+                <li><a href="{{ client.get_absolute_url }}">{{ client }}</a></li>
+            {% empty %}
+                <li><em>There are currently no clients under this advisor.</em></li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

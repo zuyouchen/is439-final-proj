@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Advisor(models.Model):
@@ -9,6 +10,9 @@ class Advisor(models.Model):
     def __str__(self):
         return '%s %s' % (self.first_name, self.last_name)
 
+    def get_absolute_url(self):
+        return reverse('budget_advisor_detail_urlpattern', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Financial Advisor"
         verbose_name_plural = "Financial Advisors"
@@ -16,12 +20,15 @@ class Advisor(models.Model):
 
 class Client(models.Model):
     client_id = models.AutoField(primary_key=True)
-    advisor = models.ForeignKey(Advisor, related_name='advisor', on_delete=models.PROTECT)
+    advisor = models.ForeignKey(Advisor, related_name='clients', on_delete=models.PROTECT)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
 
     def __str__(self):
         return '%s %s' % (self.first_name, self.last_name)
+
+    def get_absolute_url(self):
+        return reverse('budget_client_detail_urlpattern', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = "Client"
@@ -76,6 +83,9 @@ class Expense(models.Model):
     def __str__(self):
         return '%s - $%s (%s, %s)' % (self.client, self.amount, self.category, self.frequency)
 
+    def get_absolute_url(self):
+        return reverse('budget_expense_detail_urlpattern', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Expense"
         verbose_name_plural = "Expenses"
@@ -93,6 +103,9 @@ class Income(models.Model):
     def __str__(self):
         return '%s - $%s (%s, %s)' % (self.client, self.amount, self.category, self.frequency)
 
+    def get_absolute_url(self):
+        return reverse('budget_income_detail_urlpattern', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Income"
         verbose_name_plural = "Incomes"
@@ -107,6 +120,9 @@ class Budget(models.Model):
 
     def __str__(self):
         return '%s - %s' % (self.client, self.budget_name)
+
+    def get_absolute_url(self):
+        return reverse('budget_budget_detail_urlpattern', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = "Budget"

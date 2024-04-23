@@ -1,0 +1,40 @@
+{% extends 'budget/base.html' %}
+{% block title %}
+    About
+{% endblock %}
+
+{% block heading %}
+    <h1>About</h1>
+{% endblock %}
+
+{% block content %}
+    <h3>What is EZ Budget App?</h3>
+    <p>
+        This simple web application is an online budgeting <b>proof of concept</b>.
+        In theory, as a financial planning business, you'd want to manage your advisors, clients, their budgets, incomes, and expenses in a single application.
+        Additionally, as a client, you could login and view your budgeting information relatively easily.
+    </p>
+    <p>
+        The application currently just allows for superusers to perform CRUD operations on all objects.
+        Eventually, the application could transition to a more complex authorization scheme where individual users have access
+        to their information, advisors have access to their respective clients, and administrators have access to all.
+    </p>
+    <p>
+        The data in this application is fictional.
+        Some names are taken from <a href="https://en.wikipedia.org/wiki/Suits_(American_TV_series)">Suits</a>.
+    </p>
+
+    <h3>Navigation</h3>
+    <p>
+        Select any of the header buttons above to view lists of the respective objects.
+        <br><br>
+        <mark>[WIP]</mark> Selecting an item from the list views sends you to a detailed page, containing related information of that particular object.
+        <br>
+        <mark>[WIP]</mark> Selecting a filter by button from the list view sends you to a filtering page, where you can filter by category, frequency, etc.
+        <br>
+        <mark>[WIP]</mark> Selecting a "generate visualization" button from the list view sends you to a page that generates a visualization of budget/incomes/expenses
+    </p>
+
+    <h3>Acknowledgements</h3>
+    <p>Credit to IS439 Prof. Kevin Trainor's <a href="trainor1.pythonanywhere.com">EZU Web Application</a> for inspiration on website functionality and project setup.</p>
+{% endblock %}

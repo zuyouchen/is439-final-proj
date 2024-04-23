@@ -1,0 +1,43 @@
+{% extends 'budget/base.html' %}
+{% block title %}
+    Budget Detail
+{% endblock %}
+
+{% block heading %}
+    <h1>Budget - {{ budget }}</h1>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h3>Budget Information</h3>
+        <table>
+            <tr>
+                <td>Client:</td>
+                <td><a href="{{ budget.client.get_absolute_url }}">{{ budget.client }}</a></td>
+            </tr>
+            <tr>
+                <td>Budget Name:</td>
+                <td>{{ budget.budget_name }}</td>
+            </tr>
+            <tr>
+                <td>Start Date:</td>
+                <td>{{ budget.start_date }}</td>
+            </tr>
+            <tr>
+                <td>End Date:</td>
+                <td>{{ budget.end_date }}</td>
+            </tr>
+        </table>
+    </section>
+    <section>
+        <h3>Categories</h3>
+        <button>TODO: Add/Update/Delete Category</button>
+        <ul>
+            {% for category in budget_categories %}
+                <li>{{ category.category }}: ${{ category.amount }}</li>
+            {% empty %}
+                <li><em>There are currently no categories under this budget.</em></li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

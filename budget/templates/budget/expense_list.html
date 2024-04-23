@@ -1,0 +1,21 @@
+{% extends 'budget/base.html' %}
+{% block title %}
+    Expense List
+{% endblock %}
+
+{% block heading %}
+    <h1>Expenses</h1>
+{% endblock %}
+
+{% block content %}
+    <a class="button" href="">Create New Expense</a>
+
+    <ul>
+        {% for expense in expense_list %}
+            <li><a href="{{ expense.get_absolute_url }}">{{ expense }}</a></li>
+        {% empty %}
+            <li><em>There are currently no expenses available.</em></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
