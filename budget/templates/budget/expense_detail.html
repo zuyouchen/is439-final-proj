@@ -36,6 +36,10 @@
                 <td>{{ expense.category }}</td>
             </tr>
         </table>
+        <div>
+            <a class="button" href="{{ expense.get_update_url }}">Update Expense</a>
+            <a class="button" href="">Delete Expense</a>
+        </div>
     </section>
     <p><mark>TODO:</mark> Add href to Freq/Category for filtering capabilities</p>
 {% endblock %}

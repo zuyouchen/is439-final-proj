@@ -1,0 +1,19 @@
+{% extends 'budget/base.html' %}
+
+{% block title %}
+    Update Budget Category
+{% endblock %}
+
+{% block heading %}
+    <h1>Update Budget Category ({{ budget }})</h1>
+{% endblock %}
+
+{% block content %}
+    <form
+        action="{{ budgetcategory.get_update_url }}"
+        method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Budget Category</button>
+    </form>
+{% endblock %}

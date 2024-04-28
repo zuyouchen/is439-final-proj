@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <a class="button" href="">Create New Client</a>
+    <a class="button" href="{% url 'budget_client_create_urlpattern' %}">Create New Client</a>
 
     <ul>
         {% for client in client_list %}

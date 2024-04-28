@@ -13,6 +13,9 @@ class Advisor(models.Model):
     def get_absolute_url(self):
         return reverse('budget_advisor_detail_urlpattern', kwargs={'pk': self.pk})
 
+    def get_update_url(self):
+        return reverse('budget_advisor_update_urlpattern', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Financial Advisor"
         verbose_name_plural = "Financial Advisors"
@@ -29,6 +32,9 @@ class Client(models.Model):
 
     def get_absolute_url(self):
         return reverse('budget_client_detail_urlpattern', kwargs={'pk': self.pk})
+
+    def get_update_url(self):
+        return reverse('budget_client_update_urlpattern', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = "Client"
@@ -86,6 +92,9 @@ class Expense(models.Model):
     def get_absolute_url(self):
         return reverse('budget_expense_detail_urlpattern', kwargs={'pk': self.pk})
 
+    def get_update_url(self):
+        return reverse('budget_expense_update_urlpattern', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Expense"
         verbose_name_plural = "Expenses"
@@ -106,6 +115,9 @@ class Income(models.Model):
     def get_absolute_url(self):
         return reverse('budget_income_detail_urlpattern', kwargs={'pk': self.pk})
 
+    def get_update_url(self):
+        return reverse('budget_income_update_urlpattern', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Income"
         verbose_name_plural = "Incomes"
@@ -124,6 +136,9 @@ class Budget(models.Model):
     def get_absolute_url(self):
         return reverse('budget_budget_detail_urlpattern', kwargs={'pk': self.pk})
 
+    def get_update_url(self):
+        return reverse('budget_budget_update_urlpattern', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Budget"
         verbose_name_plural = "Budgets"
@@ -138,6 +153,9 @@ class BudgetCategory(models.Model):
 
     def __str__(self):
         return '%s - %s: $%s' % (self.budget, self.category, self.amount)
+
+    def get_update_url(self):
+        return reverse('budget_budget_category_update_urlpattern', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = "Budget Category"

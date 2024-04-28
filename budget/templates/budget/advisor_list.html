@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <a class="button" href="">Create New Advisor</a>
+    <a class="button" href="{% url 'budget_advisor_create_urlpattern' %}">Create New Advisor</a>
 
     <ul>
         {% for advisor in advisor_list %}

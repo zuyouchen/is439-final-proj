@@ -1,0 +1,19 @@
+{% extends 'budget/base.html' %}
+
+{% block title %}
+    Create Advisor
+{% endblock %}
+
+{% block heading %}
+    <h1>Create Advisor</h1>
+{% endblock %}
+
+{% block content %}
+    <form
+        action="{% url 'budget_advisor_create_urlpattern'%}"
+        method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Advisor</button>
+    </form>
+{% endblock %}

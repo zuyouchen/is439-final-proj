@@ -28,13 +28,21 @@
                 <td>{{ budget.end_date }}</td>
             </tr>
         </table>
+        <div>
+            <a class="button" href="{{ budget.get_update_url }}">Update Budget</a>
+            <a class="button" href="">Delete Budget</a>
+        </div>
     </section>
     <section>
         <h3>Categories</h3>
-        <button>TODO: Add/Update/Delete Category</button>
+        <a class="button" href="{% url 'budget_budget_category_create_urlpattern' %}?budget_id={{ budget.pk }}">Create Category</a>
         <ul>
             {% for category in budget_categories %}
-                <li>{{ category.category }}: ${{ category.amount }}</li>
+                <li>
+                    {{ category.category }}: ${{ category.amount }} &emsp;
+                    <a href={{ category.get_update_url }}?budget_id={{ budget.pk }}>Update Category</a> &emsp;
+                    <a href="">Delete Category</a>
+                </li>
             {% empty %}
                 <li><em>There are currently no categories under this budget.</em></li>
             {% endfor %}

@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <a class="button" href="">Create New Budget</a>
+    <a class="button" href="{% url 'budget_budget_create_urlpattern' %}">Create New Budget</a>
 
     <ul>
         {% for budget in budget_list %}

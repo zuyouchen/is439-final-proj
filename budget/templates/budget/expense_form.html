@@ -1,0 +1,23 @@
+{% extends 'budget/base.html' %}
+
+{% block title %}
+    Create Expense
+{% endblock %}
+
+{% block heading %}
+    <h1>Create Expense</h1>
+{% endblock %}
+
+{% block content %}
+    <form
+        action="{% url 'budget_expense_create_urlpattern'%}"
+        method="post">
+        <aside>
+            <p><b>Note:</b></p>
+            <p>The expected input format for <code>Date</code> is <br> 'YYYY-MM-DD'</p>
+        </aside>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Expense</button>
+    </form>
+{% endblock %}

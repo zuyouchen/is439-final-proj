@@ -1,0 +1,15 @@
+{% extends 'budget/base.html' %}
+
+{% block title %}
+    Update Client
+{% endblock %}
+
+{% block content %}
+    <form
+        action="{{ client.get_update_url }}"
+        method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Client</button>
+    </form>
+{% endblock %}
