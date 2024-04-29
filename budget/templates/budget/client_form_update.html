@@ -4,6 +4,10 @@
     Update Client
 {% endblock %}
 
+{% block heading %}
+    <h1>Update Client - {{ client }}</h1>
+{% endblock %}
+
 {% block content %}
     <form
         action="{{ client.get_update_url }}"

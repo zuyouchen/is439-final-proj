@@ -1,38 +1,26 @@
 {% extends 'budget/base.html' %}
+
 {% block title %}
-    Client Detail
+    Error Deleting Client
 {% endblock %}
 
 {% block heading %}
-    <h1>Client - {{ client }}</h1>
+    <h1>Error Deleting Client</h1>
 {% endblock %}
 
+
 {% block content %}
-    <section>
-        <h3>Client Information</h3>
-        <table>
-            <tr>
-                <td>First Name:</td>
-                <td>{{ client.first_name }}</td>
-            </tr>
-            <tr>
-                <td>Last Name:</td>
-                <td>{{ client.last_name }}</td>
-            </tr>
-            <tr>
-                <td>Advisor:</td>
-                <td>{{ client.advisor }}</td>
-            </tr>
-        </table>
-        <div>
-            <a class="button" href="{{ client.get_update_url }}">Update Client</a>
-            <a class="button" href="{{ client.get_delete_url }}">Delete Client</a>
-        </div>
-    </section>
+    <h2>Error Deleting Client</h2>
+    <p class="notice">
+        You may not delete client <b>{{ client }}</b>.  This
+        client has at least one existing expense, income, or budget
+        that must be deleted beforehand.
+    </p>
+
     <section>
         <h3>Expenses</h3>
         <ul>
-            {% for expense in expense_list %}
+            {% for expense in expenses %}
                 <li><a href="{{ expense.get_absolute_url }}">{{ expense }}</a></li>
             {% empty %}
                 <li><em>There are currently no expenses associated with this client.</em></li>
@@ -40,7 +28,7 @@
         </ul>
         <h3>Incomes</h3>
         <ul>
-            {% for income in income_list %}
+            {% for income in incomes %}
                 <li><a href="{{ income.get_absolute_url }}">{{ income }}</a></li>
             {% empty %}
                 <li><em>There are currently no incomes associated with this client.</em></li>
@@ -48,11 +36,14 @@
         </ul>
         <h3>Budgets</h3>
             <ul>
-            {% for budget in budget_list %}
+            {% for budget in budgets %}
                 <li><a href="{{ budget.get_absolute_url }}">{{ budget }}</a></li>
             {% empty %}
                 <li><em>There are currently no budgets associated with this client.</em></li>
             {% endfor %}
         </ul>
     </section>
+    <p>
+        Return to <a href="{% url 'budget_client_list_urlpattern' %}">Client List</a>.
+    </p>
 {% endblock %}

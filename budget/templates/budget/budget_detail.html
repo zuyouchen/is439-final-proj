@@ -30,7 +30,7 @@
         </table>
         <div>
             <a class="button" href="{{ budget.get_update_url }}">Update Budget</a>
-            <a class="button" href="">Delete Budget</a>
+            <a class="button" href="{{ budget.get_delete_url }}">Delete Budget</a>
         </div>
     </section>
     <section>
@@ -40,8 +40,8 @@
             {% for category in budget_categories %}
                 <li>
                     {{ category.category }}: ${{ category.amount }} &emsp;
-                    <a href={{ category.get_update_url }}?budget_id={{ budget.pk }}>Update Category</a> &emsp;
-                    <a href="">Delete Category</a>
+                    <a href="{{ category.get_update_url }}?budget_id={{ budget.pk }}">Update Category</a> &emsp;
+                    <a href="{{ category.get_delete_url }}?budget_id={{ budget.pk }}">Delete Category</a>
                 </li>
             {% empty %}
                 <li><em>There are currently no categories under this budget.</em></li>

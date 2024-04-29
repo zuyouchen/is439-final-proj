@@ -12,7 +12,7 @@
     <p>
         This simple web application is an online budgeting <b>proof of concept</b>.
         In theory, as a financial planning business, you'd want to manage your advisors, clients, their budgets, incomes, and expenses in a single application.
-        Additionally, as a client, you could login and view your budgeting information relatively easily.
+        Additionally, as a client, you could log in and view your budgeting information relatively easily.
     </p>
     <p>
         The application currently just allows for superusers to perform CRUD operations on all objects.
@@ -26,10 +26,13 @@
 
     <h3>Navigation</h3>
     <p>
-        Select any of the header buttons above to view lists of the respective objects.
+        Select any of the header buttons above to <b>view lists</b> of the respective objects. <br><br>
+        Selecting an item from the list views sends you to a <b>detailed page</b>, containing related information of that particular object. <br><br>
+        Detailed pages list object attributes alongside buttons to <b>update</b> or <b>delete</b> the object.
         <br><br>
-        <mark>[WIP]</mark> Selecting an item from the list views sends you to a detailed page, containing related information of that particular object.
-        <br>
+        Budgets are broken down into separate Budget Categories, which can <i>only</i> be created and updated given an existing Budget.
+        <br><br>
+
         <mark>[WIP]</mark> Selecting a filter by button from the list view sends you to a filtering page, where you can filter by category, frequency, etc.
         <br>
         <mark>[WIP]</mark> Selecting a "generate visualization" button from the list view sends you to a page that generates a visualization of budget/incomes/expenses

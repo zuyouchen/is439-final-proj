@@ -1,0 +1,23 @@
+{% extends 'budget/base.html' %}
+
+{% block title %}
+    Delete Expense
+{% endblock %}
+
+{% block heading %}
+    <h1>Delete Expense</h1>
+{% endblock %}
+
+{% block content %}
+    <form
+        action="{{ expense.get_delete_url }}"
+        method="post">
+        {% csrf_token %}
+        <p class="notice">
+            Are you sure that you want to delete
+            expense <b>{{ expense }}</b>?
+        </p>
+        <a href="{{ expense.get_absolute_url }}" class="button">Cancel</a>
+        <button type="submit">Delete Expense</button>
+    </form>
+{% endblock %}

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block heading %}
-    <h1>Update Budget Category ({{ budget }})</h1>
+    <h1>Update Budget Category</h1>
 {% endblock %}
 
 {% block content %}
@@ -13,6 +13,10 @@
         action="{{ budgetcategory.get_update_url }}"
         method="post">
         {% csrf_token %}
+        <p class="notice">
+            This budget category is for budget <b>{{ budget }}</b>,
+            under the category <b>{{ budgetcategory.category }}</b>.
+        </p>
         {{ form.as_p }}
         <button type="submit">Update Budget Category</button>
     </form>

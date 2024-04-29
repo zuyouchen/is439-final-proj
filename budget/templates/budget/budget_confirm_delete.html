@@ -1,0 +1,24 @@
+{% extends 'budget/base.html' %}
+
+{% block title %}
+    Delete Budget
+{% endblock %}
+
+{% block heading %}
+    <h1>Delete Budget</h1>
+{% endblock %}
+
+{% block content %}
+    <form
+        action="{{ budget.get_delete_url }}"
+        method="post">
+        {% csrf_token %}
+        <p class="notice">
+            Are you sure that you want to delete
+            budget <b>{{ budget }}</b>?
+        </p>
+        <p><mark>NOTE:</mark> Deleting this Budget automatically deletes all associated Budget Categories.</p>
+        <a href="{{ budget.get_absolute_url }}" class="button">Cancel</a>
+        <button type="submit">Delete Budget</button>
+    </form>
+{% endblock %}

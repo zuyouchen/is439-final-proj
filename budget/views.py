@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -18,7 +19,8 @@ from budget.forms import (
     IncomeCreateForm,
     IncomeUpdateForm,
     BudgetForm,
-    BudgetCategoryForm
+    BudgetCategoryCreateForm,
+    BudgetCategoryUpdateForm
 )
 
 
@@ -47,6 +49,28 @@ class AdvisorUpdate(UpdateView):
     form_class = AdvisorForm
     model = Advisor
     template_name = 'budget/advisor_form_update.html'
+
+
+class AdvisorDelete(DeleteView):
+    model = Advisor
+    success_url = reverse_lazy('budget_advisor_list_urlpattern')
+
+    def get(self, request, pk):
+        advisor = get_object_or_404(Advisor, pk=pk)
+        clients = advisor.clients.all()
+        if clients.count() > 0:
+            return render(
+                request,
+                'budget/advisor_refuse_delete.html',
+                {'advisor': advisor,
+                 'clients': clients}
+            )
+        else:
+            return render(
+                request,
+                'budget/advisor_confirm_delete.html',
+                {'advisor': advisor}
+            )
 
 
 class ClientList(ListView):
@@ -78,6 +102,32 @@ class ClientUpdate(UpdateView):
     form_class = ClientForm
     model = Client
     template_name = 'budget/client_form_update.html'
+
+
+class ClientDelete(DeleteView):
+    model = Client
+    success_url = reverse_lazy('budget_client_list_urlpattern')
+
+    def get(self, request, pk):
+        client = get_object_or_404(Client, pk=pk)
+        expenses = client.expenses.all()
+        incomes = client.incomes.all()
+        budgets = client.budgets.all()
+        if (expenses.count() + incomes.count() + budgets.count()) > 0:
+            return render(
+                request,
+                'budget/client_refuse_delete.html',
+                {'client': client,
+                 'expenses': expenses,
+                 'incomes': incomes,
+                 'budgets': budgets}
+            )
+        else:
+            return render(
+                request,
+                'budget/client_confirm_delete.html',
+                {'client': client}
+            )
 
 
 class ExpenseList(ListView):
@@ -113,6 +163,11 @@ class ExpenseUpdate(UpdateView):
         return context
 
 
+class ExpenseDelete(DeleteView):
+    model = Expense
+    success_url = reverse_lazy('budget_expense_list_urlpattern')
+
+
 class IncomeList(ListView):
     model = Income
 
@@ -146,6 +201,11 @@ class IncomeUpdate(UpdateView):
         return context
 
 
+class IncomeDelete(DeleteView):
+    model = Income
+    success_url = reverse_lazy('budget_income_list_urlpattern')
+
+
 class BudgetList(ListView):
     model = Budget
 
@@ -173,9 +233,14 @@ class BudgetUpdate(UpdateView):
     template_name = 'budget/budget_form_update.html'
 
 
+class BudgetDelete(DeleteView):
+    model = Budget
+    success_url = reverse_lazy('budget_budget_list_urlpattern')
+
+
 # We need the ability to C/U/D a BudgetCategory, but we don't list them because they are budget-specific
 class BudgetCategoryCreate(CreateView):
-    form_class = BudgetCategoryForm
+    form_class = BudgetCategoryCreateForm
     model = BudgetCategory
 
     def get_initial(self):
@@ -205,12 +270,12 @@ class BudgetCategoryCreate(CreateView):
 
 
 class BudgetCategoryUpdate(UpdateView):
-    form_class = BudgetCategoryForm
+    form_class = BudgetCategoryUpdateForm
     model = BudgetCategory
     template_name = 'budget/budgetcategory_form_update.html'
 
     def get_success_url(self):
-        budget_id = self.kwargs.get('pk')  # Retrieve budget id from URL parameters
+        budget_id = self.object.budget.budget_id
         return reverse_lazy('budget_budget_detail_urlpattern', kwargs={'pk': budget_id})
 
     def get_context_data(self, **kwargs):
@@ -219,3 +284,18 @@ class BudgetCategoryUpdate(UpdateView):
         budget = Budget.objects.get(pk=budget_id)
         context['budget'] = budget
         return context
+
+
+class BudgetCategoryDelete(DeleteView):
+    model = BudgetCategory
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        budget_id = self.request.GET.get('budget_id')
+        budget = Budget.objects.get(pk=budget_id)
+        context['budget'] = budget
+        return context
+
+    def get_success_url(self):
+        budget_id = self.object.budget.budget_id
+        return reverse_lazy('budget_budget_detail_urlpattern', kwargs={'pk': budget_id})

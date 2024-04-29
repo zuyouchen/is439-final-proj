@@ -1,0 +1,23 @@
+{% extends 'budget/base.html' %}
+
+{% block title %}
+    Delete Client
+{% endblock %}
+
+{% block heading %}
+    <h1>Delete Client</h1>
+{% endblock %}
+
+{% block content %}
+    <form
+        action="{{ client.get_delete_url }}"
+        method="post">
+        {% csrf_token %}
+        <p class="notice">
+            Are you sure that you want to delete
+            client <b>{{ client }}</b>?
+        </p>
+        <a href="{{ client.get_absolute_url }}" class="button">Cancel</a>
+        <button type="submit">Delete Client</button>
+    </form>
+{% endblock %}

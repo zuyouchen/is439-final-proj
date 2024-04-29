@@ -63,8 +63,8 @@ class IncomeCreateForm(forms.ModelForm):
 
 class IncomeUpdateForm(forms.ModelForm):
     class Meta:
-        model = Expense
-        fields = ['amount', 'description', 'frequency', 'category', 'date']
+        model = Income
+        fields = ['amount', 'description', 'frequency', 'date']
 
     def clean_description(self):
         return self.cleaned_data['description'].strip()
@@ -79,7 +79,7 @@ class BudgetForm(forms.ModelForm):
         return self.cleaned_data['budget_name'].strip()
 
 
-class BudgetCategoryForm(forms.ModelForm):
+class BudgetCategoryCreateForm(forms.ModelForm):
     class Meta:
         model = BudgetCategory
         fields = ['category', 'amount', 'budget']
@@ -88,6 +88,21 @@ class BudgetCategoryForm(forms.ModelForm):
         budget_id = kwargs.pop('budget_id', None)
         super().__init__(*args, **kwargs)
         self.fields['budget'].widget = forms.HiddenInput()  # hide budget selection from user
+
+        if budget_id:
+            self.fields['budget'].initial = budget_id
+
+
+class BudgetCategoryUpdateForm(forms.ModelForm):
+    class Meta:
+        model = BudgetCategory
+        fields = ['category', 'amount', 'budget']
+
+    def __init__(self, *args, **kwargs):
+        budget_id = kwargs.pop('budget_id', None)
+        super().__init__(*args, **kwargs)
+        self.fields['budget'].widget = forms.HiddenInput()  # hide budget selection from user
+        self.fields['category'].widget = forms.HiddenInput()  # hide category selection from user
 
         if budget_id:
             self.fields['budget'].initial = budget_id

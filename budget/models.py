@@ -16,6 +16,9 @@ class Advisor(models.Model):
     def get_update_url(self):
         return reverse('budget_advisor_update_urlpattern', kwargs={'pk': self.pk})
 
+    def get_delete_url(self):
+        return reverse('budget_advisor_delete_urlpattern', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Financial Advisor"
         verbose_name_plural = "Financial Advisors"
@@ -35,6 +38,9 @@ class Client(models.Model):
 
     def get_update_url(self):
         return reverse('budget_client_update_urlpattern', kwargs={'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse('budget_client_delete_urlpattern', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = "Client"
@@ -95,6 +101,9 @@ class Expense(models.Model):
     def get_update_url(self):
         return reverse('budget_expense_update_urlpattern', kwargs={'pk': self.pk})
 
+    def get_delete_url(self):
+        return reverse('budget_expense_delete_urlpattern', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Expense"
         verbose_name_plural = "Expenses"
@@ -118,6 +127,9 @@ class Income(models.Model):
     def get_update_url(self):
         return reverse('budget_income_update_urlpattern', kwargs={'pk': self.pk})
 
+    def get_delete_url(self):
+        return reverse('budget_income_delete_urlpattern', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Income"
         verbose_name_plural = "Incomes"
@@ -139,6 +151,9 @@ class Budget(models.Model):
     def get_update_url(self):
         return reverse('budget_budget_update_urlpattern', kwargs={'pk': self.pk})
 
+    def get_delete_url(self):
+        return reverse('budget_budget_delete_urlpattern', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Budget"
         verbose_name_plural = "Budgets"
@@ -146,7 +161,7 @@ class Budget(models.Model):
 
 class BudgetCategory(models.Model):
     budget_category_id = models.AutoField(primary_key=True)
-    budget = models.ForeignKey(Budget, related_name='budget_categories', on_delete=models.PROTECT)
+    budget = models.ForeignKey(Budget, related_name='budget_categories', on_delete=models.CASCADE)
     # We will assume budgets only manage expenses
     category = models.ForeignKey(ExpenseCategory, related_name='budget_categories', on_delete=models.PROTECT)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -156,6 +171,9 @@ class BudgetCategory(models.Model):
 
     def get_update_url(self):
         return reverse('budget_budget_category_update_urlpattern', kwargs={'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse('budget_budget_category_delete_urlpattern', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = "Budget Category"
