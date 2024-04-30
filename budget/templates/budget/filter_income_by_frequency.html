@@ -1,0 +1,45 @@
+{% extends 'budget/base.html' %}
+{% block title %}
+    Filter Incomes by Frequency
+{% endblock %}
+
+{% block heading %}
+    <h1>Filter Incomes by Frequency</h1>
+{% endblock %}
+
+{% block content %}
+<form method="get" action="">
+    {% if not selected_frequency %}
+        <aside>
+            <p><i>*Note: no filter applied, all incomes shown.</i></p>
+        </aside>
+    {% endif %}
+    <label>
+        <select name="income_frequency_id">
+            {% if selected_frequency %}
+                <option value="{{ selected_frequency.frequency_id }}">{{ selected_frequency.frequency_name }}</option>
+            {% endif %}
+            <option value="">All Frequencies</option>
+            {% for frequency in frequencies %}
+                <option value="{{ frequency.frequency_id }}">{{ frequency.frequency_name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </label>
+</form>
+
+<ul>
+    {% for income in incomes %}
+        <li><a href="{{ income.get_absolute_url }}">{{ income }}</a></li>
+    {% empty %}
+        <li><em>There are currently no incomes occurring at {{ selected_frequency }} frequency.</em></li>
+    {% endfor %}
+</ul>
+
+<br>
+
+<div style="justify-content: space-between; display: flex">
+    <a class="button" href="{% url 'budget_income_list_urlpattern' %}">Back to Income List</a>
+    <a class="button" href="{% url 'budget_income_create_urlpattern' %}">Create New Income</a>
+</div>
+{% endblock %}

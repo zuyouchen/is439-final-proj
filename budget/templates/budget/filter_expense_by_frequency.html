@@ -1,0 +1,45 @@
+{% extends 'budget/base.html' %}
+{% block title %}
+    Filter Expenses by Frequency
+{% endblock %}
+
+{% block heading %}
+    <h1>Filter Expenses by Frequency</h1>
+{% endblock %}
+
+{% block content %}
+<form method="get" action="">
+    {% if not selected_frequency %}
+        <aside>
+            <p><i>*Note: no filter applied, all expenses shown.</i></p>
+        </aside>
+    {% endif %}
+    <label>
+        <select name="expense_frequency_id">
+            {% if selected_frequency %}
+                <option value="{{ selected_frequency.frequency_id }}">{{ selected_frequency.frequency_name }}</option>
+            {% endif %}
+            <option value="">All Frequencies</option>
+            {% for frequency in frequencies %}
+                <option value="{{ frequency.frequency_id }}">{{ frequency.frequency_name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </label>
+</form>
+
+<ul>
+    {% for expense in expenses %}
+        <li><a href="{{ expense.get_absolute_url }}">{{ expense }}</a></li>
+    {% empty %}
+        <li><em>There are currently no expenses occurring at {{ selected_frequency }} frequency.</em></li>
+    {% endfor %}
+</ul>
+
+<br>
+
+<div style="justify-content: space-between; display: flex">
+    <a class="button" href="{% url 'budget_expense_list_urlpattern' %}">Back to Expense List</a>
+    <a class="button" href="{% url 'budget_expense_create_urlpattern' %}">Create New Expense</a>
+</div>
+{% endblock %}

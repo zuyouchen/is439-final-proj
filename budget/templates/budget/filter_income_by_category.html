@@ -1,0 +1,45 @@
+{% extends 'budget/base.html' %}
+{% block title %}
+    Filter Incomes by Category
+{% endblock %}
+
+{% block heading %}
+    <h1>Filter Incomes by Category</h1>
+{% endblock %}
+
+{% block content %}
+<form method="get" action="">
+    {% if not selected_category %}
+        <aside>
+            <p><i>*Note: no filter applied, all incomes shown.</i></p>
+        </aside>
+    {% endif %}
+    <label>
+        <select name="income_category_id">
+            {% if selected_category %}
+                <option value="{{ selected_category.income_category_id }}">{{ selected_category.income_category_name }}</option>
+            {% endif %}
+            <option value="">All Income Categories</option>
+            {% for category in categories %}
+                <option value="{{ category.income_category_id }}">{{ category.income_category_name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </label>
+</form>
+
+<ul>
+    {% for income in incomes %}
+        <li><a href="{{ income.get_absolute_url }}">{{ income }}</a></li>
+    {% empty %}
+        <li><em>There are currently no incomes in the {{ selected_category }} category.</em></li>
+    {% endfor %}
+</ul>
+
+<br>
+
+<div style="justify-content: space-between; display: flex">
+    <a class="button" href="{% url 'budget_income_list_urlpattern' %}">Back to Income List</a>
+    <a class="button" href="{% url 'budget_income_create_urlpattern' %}">Create New Income</a>
+</div>
+{% endblock %}

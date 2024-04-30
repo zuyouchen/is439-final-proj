@@ -10,7 +10,8 @@ from budget.models import (
     Budget,
     BudgetCategory,
     ExpenseCategory,
-    IncomeCategory
+    IncomeCategory,
+    Frequency
 )
 
 from budget.forms import (
@@ -326,4 +327,76 @@ class FilterExpenseByCategory(ListView):
             context['categories'] = ExpenseCategory.objects.all().exclude(pk=expense_category_id)
         else:
             context['categories'] = ExpenseCategory.objects.all()
+        return context
+
+
+class FilterExpenseByFrequency(ListView):
+    model = Expense
+    template_name = 'budget/filter_expense_by_frequency.html'
+    context_object_name = 'expenses'
+
+    def get_queryset(self):
+        expense_frequency_id = self.request.GET.get('expense_frequency_id')
+        if expense_frequency_id:
+            return Expense.objects.filter(frequency_id=expense_frequency_id)
+        return Expense.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        expense_frequency_id = self.request.GET.get('expense_frequency_id')
+        #  Logic to support the selected frequency becoming the default form option
+        if expense_frequency_id:
+            frequency = Frequency.objects.get(pk=expense_frequency_id)
+            context['selected_frequency'] = frequency
+            context['frequencies'] = Frequency.objects.all().exclude(pk=expense_frequency_id)
+        else:
+            context['frequencies'] = Frequency.objects.all()
+        return context
+
+
+class FilterIncomeByCategory(ListView):
+    model = Income
+    template_name = 'budget/filter_income_by_category.html'
+    context_object_name = 'incomes'
+
+    def get_queryset(self):
+        income_category_id = self.request.GET.get('income_category_id')
+        if income_category_id:
+            return Income.objects.filter(category_id=income_category_id)
+        return Income.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        income_category_id = self.request.GET.get('income_category_id')
+        #  Logic to support the selected category becoming the default form option
+        if income_category_id:
+            category = IncomeCategory.objects.get(pk=income_category_id)
+            context['selected_category'] = category
+            context['categories'] = IncomeCategory.objects.all().exclude(pk=income_category_id)
+        else:
+            context['categories'] = IncomeCategory.objects.all()
+        return context
+
+
+class FilterIncomeByFrequency(ListView):
+    model = Income
+    template_name = 'budget/filter_income_by_frequency.html'
+    context_object_name = 'incomes'
+
+    def get_queryset(self):
+        income_frequency_id = self.request.GET.get('income_frequency_id')
+        if income_frequency_id:
+            return Income.objects.filter(frequency_id=income_frequency_id)
+        return Income.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        income_frequency_id = self.request.GET.get('income_frequency_id')
+        #  Logic to support the selected frequency becoming the default form option
+        if income_frequency_id:
+            frequency = Frequency.objects.get(pk=income_frequency_id)
+            context['selected_frequency'] = frequency
+            context['frequencies'] = Frequency.objects.all().exclude(pk=income_frequency_id)
+        else:
+            context['frequencies'] = Frequency.objects.all()
         return context

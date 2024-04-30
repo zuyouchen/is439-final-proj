@@ -28,7 +28,10 @@ from budget.views import (
     IncomeDelete,
     BudgetDelete,
     BudgetCategoryDelete,
-    FilterExpenseByCategory
+    FilterExpenseByCategory,
+    FilterExpenseByFrequency,
+    FilterIncomeByCategory,
+    FilterIncomeByFrequency,
 )
 
 urlpatterns = [
@@ -147,4 +150,17 @@ urlpatterns = [
     path('expense/filter/category/',
          FilterExpenseByCategory.as_view(),
          name='budget_filter_expense_by_category_urlpattern'),
+
+    path('expense/filter/frequency/',
+         FilterExpenseByFrequency.as_view(),
+         name='budget_filter_expense_by_frequency_urlpattern'),
+
+    path('income/filter/category/',
+         FilterIncomeByCategory.as_view(),
+         name='budget_filter_income_by_category_urlpattern'),
+
+    path('income/filter/frequency/',
+         FilterIncomeByFrequency.as_view(),
+         name='budget_filter_income_by_frequency_urlpattern'),
+
 ]

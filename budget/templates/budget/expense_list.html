@@ -9,6 +9,8 @@
 
 {% block content %}
     <a class="button" href="{% url 'budget_expense_create_urlpattern' %}">Create New Expense</a>
+    <a class="button" href="{% url 'budget_filter_expense_by_category_urlpattern' %}">Filter By Category</a>
+    <a class="button" href="{% url 'budget_filter_expense_by_frequency_urlpattern' %}">Filter By Frequency</a>
 
     <ul>
         {% for expense in expense_list %}
@@ -17,7 +19,4 @@
             <li><em>There are currently no expenses available.</em></li>
         {% endfor %}
     </ul>
-
-    <a class="button" href="{% url 'budget_filter_expense_by_category_urlpattern' %}">Filter By Category</a>
-
 {% endblock %}
