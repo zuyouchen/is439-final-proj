@@ -1,0 +1,45 @@
+{% extends 'budget/base.html' %}
+{% block title %}
+    Filter Expenses by Category
+{% endblock %}
+
+{% block heading %}
+    <h1>Filter Expenses by Category</h1>
+{% endblock %}
+
+{% block content %}
+<form method="get" action="">
+    {% if not selected_category %}
+        <aside>
+            <p><i>*Note: no filter applied, all expenses shown.</i></p>
+        </aside>
+    {% endif %}
+    <label>
+        <select name="expense_category_id">
+            {% if selected_category %}
+                <option value="{{ selected_category.expense_category_id }}">{{ selected_category.expense_category_name }}</option>
+            {% endif %}
+            <option value="">All Expense Categories</option>
+            {% for category in categories %}
+                <option value="{{ category.expense_category_id }}">{{ category.expense_category_name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </label>
+</form>
+
+<ul>
+    {% for expense in expenses %}
+        <li><a href="{{ expense.get_absolute_url }}">{{ expense }}</a></li>
+    {% empty %}
+        <li><em>There are currently no expenses in the {{ selected_category }} category.</em></li>
+    {% endfor %}
+</ul>
+
+<br>
+
+<div style="justify-content: space-between; display: flex">
+    <a class="button" href="{% url 'budget_expense_list_urlpattern' %}">Back to Expense List</a>
+    <a class="button" href="{% url 'budget_expense_create_urlpattern' %}">Create New Expense</a>
+</div>
+{% endblock %}

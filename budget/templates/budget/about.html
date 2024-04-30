@@ -15,9 +15,14 @@
         Additionally, as a client, you could log in and view your budgeting information relatively easily.
     </p>
     <p>
-        The application currently just allows for superusers to perform CRUD operations on all objects.
+        The application currently just allows for superusers to perform CRUD operations on all fully supported model objects (Advisor, Client, Budget, Income, Expense, BudgetCategory).
+        Some pre-populated object models are not editable aside from the django-admin application (ExpenseCategory, IncomeCategory, and Frequency).
+        This is intended and due to the fact that these are realistically static, determined by the financial planning business.
+    </p>
+    <p>
         Eventually, the application could transition to a more complex authorization scheme where individual users have access
-        to their information, advisors have access to their respective clients, and administrators have access to all.
+        to their information, advisors have access to their respective clients, and administrators have access to all. This could be easily
+        implemented given the existing code checking for permissions.
     </p>
     <p>
         The data in this application is fictional.

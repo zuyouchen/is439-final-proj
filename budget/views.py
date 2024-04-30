@@ -8,7 +8,9 @@ from budget.models import (
     Expense,
     Income,
     Budget,
-    BudgetCategory
+    BudgetCategory,
+    ExpenseCategory,
+    IncomeCategory
 )
 
 from budget.forms import (
@@ -299,3 +301,29 @@ class BudgetCategoryDelete(DeleteView):
     def get_success_url(self):
         budget_id = self.object.budget.budget_id
         return reverse_lazy('budget_budget_detail_urlpattern', kwargs={'pk': budget_id})
+
+# Complex Views - Past Default CRUD Operations
+
+
+class FilterExpenseByCategory(ListView):
+    model = Expense
+    template_name = 'budget/filter_expense_by_category.html'
+    context_object_name = 'expenses'
+
+    def get_queryset(self):
+        expense_category_id = self.request.GET.get('expense_category_id')
+        if expense_category_id:
+            return Expense.objects.filter(category_id=expense_category_id)
+        return Expense.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        expense_category_id = self.request.GET.get('expense_category_id')
+        #  Logic to support the selected category becoming the default form option
+        if expense_category_id:
+            category = ExpenseCategory.objects.get(pk=expense_category_id)
+            context['selected_category'] = category
+            context['categories'] = ExpenseCategory.objects.all().exclude(pk=expense_category_id)
+        else:
+            context['categories'] = ExpenseCategory.objects.all()
+        return context

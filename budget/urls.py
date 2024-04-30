@@ -28,6 +28,7 @@ from budget.views import (
     IncomeDelete,
     BudgetDelete,
     BudgetCategoryDelete,
+    FilterExpenseByCategory
 )
 
 urlpatterns = [
@@ -142,4 +143,8 @@ urlpatterns = [
     path('budgetcategory/<int:pk>/delete/',
          BudgetCategoryDelete.as_view(),
          name='budget_budget_category_delete_urlpattern'),
+
+    path('expense/filter/category/',
+         FilterExpenseByCategory.as_view(),
+         name='budget_filter_expense_by_category_urlpattern'),
 ]
