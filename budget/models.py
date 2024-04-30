@@ -154,6 +154,9 @@ class Budget(models.Model):
     def get_delete_url(self):
         return reverse('budget_budget_delete_urlpattern', kwargs={'pk': self.pk})
 
+    def get_visualize_url(self):
+        return reverse('budget_budget_visualize_urlpattern', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Budget"
         verbose_name_plural = "Budgets"

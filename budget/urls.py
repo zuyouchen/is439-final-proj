@@ -32,6 +32,7 @@ from budget.views import (
     FilterExpenseByFrequency,
     FilterIncomeByCategory,
     FilterIncomeByFrequency,
+    VisualizeBudget
 )
 
 urlpatterns = [
@@ -162,5 +163,9 @@ urlpatterns = [
     path('income/filter/frequency/',
          FilterIncomeByFrequency.as_view(),
          name='budget_filter_income_by_frequency_urlpattern'),
+
+    path('budget/<int:pk>/visualize/',
+         VisualizeBudget.as_view(),
+         name='budget_budget_visualize_urlpattern'),
 
 ]

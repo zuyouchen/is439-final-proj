@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
 from budget.models import (
     Advisor,
@@ -399,4 +399,22 @@ class FilterIncomeByFrequency(ListView):
             context['frequencies'] = Frequency.objects.all().exclude(pk=income_frequency_id)
         else:
             context['frequencies'] = Frequency.objects.all()
+        return context
+
+
+class VisualizeBudget(TemplateView):
+    template_name = 'budget/visualize_budget.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        budget_id = self.kwargs.get('pk')
+        budget = Budget.objects.get(pk=budget_id)
+        budget_categories = budget.budget_categories.all()
+
+        labels = [category.category.expense_category_name for category in budget_categories]
+        amounts = [float(category.amount) for category in budget_categories]
+
+        context['labels'] = labels
+        context['amounts'] = amounts
+        context['budget'] = budget
         return context
