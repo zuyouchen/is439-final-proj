@@ -22,6 +22,7 @@ class Advisor(models.Model):
     class Meta:
         verbose_name = "Financial Advisor"
         verbose_name_plural = "Financial Advisors"
+        ordering = ['last_name', 'first_name']
 
 
 class Client(models.Model):
@@ -45,6 +46,7 @@ class Client(models.Model):
     class Meta:
         verbose_name = "Client"
         verbose_name_plural = "Clients"
+        ordering = ['last_name', 'first_name']
 
 
 class ExpenseCategory(models.Model):
@@ -107,6 +109,7 @@ class Expense(models.Model):
     class Meta:
         verbose_name = "Expense"
         verbose_name_plural = "Expenses"
+        ordering = ['date']
 
 
 class Income(models.Model):
@@ -133,6 +136,7 @@ class Income(models.Model):
     class Meta:
         verbose_name = "Income"
         verbose_name_plural = "Incomes"
+        ordering = ['date']
 
 
 class Budget(models.Model):
@@ -160,6 +164,7 @@ class Budget(models.Model):
     class Meta:
         verbose_name = "Budget"
         verbose_name_plural = "Budgets"
+        ordering = ['start_date']
 
 
 class BudgetCategory(models.Model):
@@ -181,3 +186,4 @@ class BudgetCategory(models.Model):
     class Meta:
         verbose_name = "Budget Category"
         verbose_name_plural = "Budget Categories"
+        ordering = ['category__expense_category_name']

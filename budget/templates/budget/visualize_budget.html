@@ -9,8 +9,10 @@
 
 {% block content %}
     <section>
-        <h1>{{ budget }} Budget</h1>
-        <p>Scroll down to view this Budget as a bar chart and pie chart, powered by <a href="https://www.chartjs.org">ChartJS</a>.</p>
+        <h2>{{ budget }} Budget</h2>
+        {% if labels and amounts %}
+            <p>Scroll down to view this Budget as a bar chart and pie chart, powered by <a href="https://www.chartjs.org">ChartJS</a>.</p>
+        {% endif %}
     </section>
 
     {% if labels and amounts %}
@@ -25,7 +27,8 @@
             </section>
         </div>
     {% else %}
-        <p>No categories available to display.</p>
+        <p class="notice">This Budget is empty! No categories available to display.</p>
+        <a class="button" href="{% url 'budget_budget_category_create_urlpattern' %}?budget_id={{ budget.pk }}">Create Category</a>
     {% endif %}
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
