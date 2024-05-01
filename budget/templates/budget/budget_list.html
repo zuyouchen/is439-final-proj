@@ -8,7 +8,9 @@
 {% endblock %}
 
 {% block content %}
-    <a class="button" href="{% url 'budget_budget_create_urlpattern' %}">Create New Budget</a>
+    {% if perms.budget.add_budget %}
+        <a class="button" href="{% url 'budget_budget_create_urlpattern' %}">Create New Budget</a>
+    {% endif %}
 
     <ul>
         {% for budget in budget_list %}

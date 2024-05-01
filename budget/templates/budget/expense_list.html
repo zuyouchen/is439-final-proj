@@ -8,9 +8,15 @@
 {% endblock %}
 
 {% block content %}
-    <a class="button" href="{% url 'budget_expense_create_urlpattern' %}">Create New Expense</a>
-    <a class="button" href="{% url 'budget_filter_expense_by_category_urlpattern' %}">Filter By Category</a>
-    <a class="button" href="{% url 'budget_filter_expense_by_frequency_urlpattern' %}">Filter By Frequency</a>
+    {% if perms.budget.add_expense %}
+        <a class="button" href="{% url 'budget_expense_create_urlpattern' %}">Create New Expense</a>
+    {% endif %}
+    {% if perms.budget.view_expense %}
+        <a class="button" href="{% url 'budget_filter_expense_by_category_urlpattern' %}">Filter By Category</a>
+    {% endif %}
+    {% if perms.budget.view_expense %}
+        <a class="button" href="{% url 'budget_filter_expense_by_frequency_urlpattern' %}">Filter By Frequency</a>
+    {% endif %}
 
     <ul>
         {% for expense in expense_list %}

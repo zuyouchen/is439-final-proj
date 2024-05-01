@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -27,12 +28,14 @@ from budget.forms import (
 )
 
 
-class AdvisorList(ListView):
+class AdvisorList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Advisor
+    permission_required = 'budget.view_advisor'
 
 
-class AdvisorDetail(DetailView):
+class AdvisorDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Advisor
+    permission_required = 'budget.view_advisor'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -43,20 +46,23 @@ class AdvisorDetail(DetailView):
         return context
 
 
-class AdvisorCreate(CreateView):
+class AdvisorCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = AdvisorForm
     model = Advisor
+    permission_required = 'budget.add_advisor'
 
 
-class AdvisorUpdate(UpdateView):
+class AdvisorUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = AdvisorForm
     model = Advisor
     template_name = 'budget/advisor_form_update.html'
+    permission_required = 'budget.change_advisor'
 
 
-class AdvisorDelete(DeleteView):
+class AdvisorDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Advisor
     success_url = reverse_lazy('budget_advisor_list_urlpattern')
+    permission_required = 'budget.delete_advisor'
 
     def get(self, request, pk):
         advisor = get_object_or_404(Advisor, pk=pk)
@@ -76,12 +82,14 @@ class AdvisorDelete(DeleteView):
             )
 
 
-class ClientList(ListView):
+class ClientList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Client
+    permission_required = 'budget.view_client'
 
 
-class ClientDetail(DetailView):
+class ClientDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Client
+    permission_required = 'budget.view_client'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -96,20 +104,23 @@ class ClientDetail(DetailView):
         return context
 
 
-class ClientCreate(CreateView):
+class ClientCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = ClientForm
     model = Client
+    permission_required = 'budget.add_client'
 
 
-class ClientUpdate(UpdateView):
+class ClientUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = ClientForm
     model = Client
     template_name = 'budget/client_form_update.html'
+    permission_required = 'budget.change_client'
 
 
-class ClientDelete(DeleteView):
+class ClientDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Client
     success_url = reverse_lazy('budget_client_list_urlpattern')
+    permission_required = 'budget.delete_client'
 
     def get(self, request, pk):
         client = get_object_or_404(Client, pk=pk)
@@ -133,12 +144,14 @@ class ClientDelete(DeleteView):
             )
 
 
-class ExpenseList(ListView):
+class ExpenseList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Expense
+    permission_required = 'budget.view_expense'
 
 
-class ExpenseDetail(DetailView):
+class ExpenseDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Expense
+    permission_required = 'budget.view_expense'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -147,15 +160,17 @@ class ExpenseDetail(DetailView):
         return context
 
 
-class ExpenseCreate(CreateView):
+class ExpenseCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = ExpenseCreateForm
     model = Expense
+    permission_required = 'budget.add_expense'
 
 
-class ExpenseUpdate(UpdateView):
+class ExpenseUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = ExpenseUpdateForm
     model = Expense
     template_name = 'budget/expense_form_update.html'
+    permission_required = 'budget.change_expense'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -166,17 +181,20 @@ class ExpenseUpdate(UpdateView):
         return context
 
 
-class ExpenseDelete(DeleteView):
+class ExpenseDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Expense
     success_url = reverse_lazy('budget_expense_list_urlpattern')
+    permission_required = 'budget.delete_expense'
 
 
-class IncomeList(ListView):
+class IncomeList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Income
+    permission_required = 'budget.view_income'
 
 
-class IncomeDetail(DetailView):
+class IncomeDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Income
+    permission_required = 'budget.view_income'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -185,15 +203,17 @@ class IncomeDetail(DetailView):
         return context
 
 
-class IncomeCreate(CreateView):
+class IncomeCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = IncomeCreateForm
     model = Income
+    permission_required = 'budget.add_income'
 
 
-class IncomeUpdate(UpdateView):
+class IncomeUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = IncomeUpdateForm
     model = Income
     template_name = 'budget/income_form_update.html'
+    permission_required = 'budget.create_income'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -204,17 +224,20 @@ class IncomeUpdate(UpdateView):
         return context
 
 
-class IncomeDelete(DeleteView):
+class IncomeDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Income
     success_url = reverse_lazy('budget_income_list_urlpattern')
+    permission_required = 'budget.delete_income'
 
 
-class BudgetList(ListView):
+class BudgetList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Budget
+    permission_required = 'budget.view_budget'
 
 
-class BudgetDetail(DetailView):
+class BudgetDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Budget
+    permission_required = 'budget.view_budget'
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
@@ -225,26 +248,30 @@ class BudgetDetail(DetailView):
         return context
 
 
-class BudgetCreate(CreateView):
+class BudgetCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = BudgetForm
     model = Budget
+    permission_required = 'budget.add_budget'
 
 
-class BudgetUpdate(UpdateView):
+class BudgetUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = BudgetForm
     model = Budget
     template_name = 'budget/budget_form_update.html'
+    permission_required = 'budget.change_budget'
 
 
-class BudgetDelete(DeleteView):
+class BudgetDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Budget
     success_url = reverse_lazy('budget_budget_list_urlpattern')
+    permission_required = 'budget.delete_budget'
 
 
 # We need the ability to C/U/D a BudgetCategory, but we don't list them because they are budget-specific
-class BudgetCategoryCreate(CreateView):
+class BudgetCategoryCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = BudgetCategoryCreateForm
     model = BudgetCategory
+    permission_required = 'budget.add_budgetcategory'
 
     def get_initial(self):
         initial = super().get_initial()
@@ -272,10 +299,11 @@ class BudgetCategoryCreate(CreateView):
         return context
 
 
-class BudgetCategoryUpdate(UpdateView):
+class BudgetCategoryUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = BudgetCategoryUpdateForm
     model = BudgetCategory
     template_name = 'budget/budgetcategory_form_update.html'
+    permission_required = 'budget.change_budgetcategory'
 
     def get_success_url(self):
         budget_id = self.object.budget.budget_id
@@ -289,8 +317,9 @@ class BudgetCategoryUpdate(UpdateView):
         return context
 
 
-class BudgetCategoryDelete(DeleteView):
+class BudgetCategoryDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = BudgetCategory
+    permission_required = 'budget.delete_budgetcategory'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -306,10 +335,11 @@ class BudgetCategoryDelete(DeleteView):
 # Complex Views - Past Default CRUD Operations
 
 
-class FilterExpenseByCategory(ListView):
+class FilterExpenseByCategory(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Expense
     template_name = 'budget/filter_expense_by_category.html'
     context_object_name = 'expenses'
+    permission_required = 'budget.view_expense'
 
     def get_queryset(self):
         expense_category_id = self.request.GET.get('expense_category_id')
@@ -330,10 +360,11 @@ class FilterExpenseByCategory(ListView):
         return context
 
 
-class FilterExpenseByFrequency(ListView):
+class FilterExpenseByFrequency(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Expense
     template_name = 'budget/filter_expense_by_frequency.html'
     context_object_name = 'expenses'
+    permission_required = 'budget.view_expense'
 
     def get_queryset(self):
         expense_frequency_id = self.request.GET.get('expense_frequency_id')
@@ -354,10 +385,11 @@ class FilterExpenseByFrequency(ListView):
         return context
 
 
-class FilterIncomeByCategory(ListView):
+class FilterIncomeByCategory(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Income
     template_name = 'budget/filter_income_by_category.html'
     context_object_name = 'incomes'
+    permission_required = 'budget.view_income'
 
     def get_queryset(self):
         income_category_id = self.request.GET.get('income_category_id')
@@ -378,10 +410,11 @@ class FilterIncomeByCategory(ListView):
         return context
 
 
-class FilterIncomeByFrequency(ListView):
+class FilterIncomeByFrequency(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Income
     template_name = 'budget/filter_income_by_frequency.html'
     context_object_name = 'incomes'
+    permission_required = 'budget.view_income'
 
     def get_queryset(self):
         income_frequency_id = self.request.GET.get('income_frequency_id')
@@ -402,8 +435,9 @@ class FilterIncomeByFrequency(ListView):
         return context
 
 
-class VisualizeBudget(TemplateView):
+class VisualizeBudget(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     template_name = 'budget/visualize_budget.html'
+    permission_required = 'budget.view_budget'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

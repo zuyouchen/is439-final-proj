@@ -8,9 +8,15 @@
 {% endblock %}
 
 {% block content %}
-    <a class="button" href="{% url 'budget_income_create_urlpattern' %}">Create New Income</a>
-    <a class="button" href="{% url 'budget_filter_income_by_category_urlpattern' %}">Filter By Category</a>
-    <a class="button" href="{% url 'budget_filter_income_by_frequency_urlpattern' %}">Filter By Frequency</a>
+    {% if perms.budget.add_income %}
+        <a class="button" href="{% url 'budget_income_create_urlpattern' %}">Create New Income</a>
+    {% endif %}
+    {% if perms.budget.view_income %}
+        <a class="button" href="{% url 'budget_filter_income_by_category_urlpattern' %}">Filter By Category</a>
+    {% endif %}
+    {% if perms.budget.view_income %}
+        <a class="button" href="{% url 'budget_filter_income_by_frequency_urlpattern' %}">Filter By Frequency</a>
+    {% endif %}
 
     <ul>
         {% for income in income_list %}

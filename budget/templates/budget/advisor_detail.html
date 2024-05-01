@@ -21,8 +21,12 @@
             </tr>
         </table>
         <div>
-            <a class="button" href="{{ advisor.get_update_url }}">Update Advisor</a>
+            {% if perms.budget.change_advisor %}
+                <a class="button" href="{{ advisor.get_update_url }}">Update Advisor</a>
+            {% endif %}
+            {% if perms.budget.delete_advisor %}
             <a class="button" href="{{ advisor.get_delete_url }}">Delete Advisor</a>
+            {% endif %}
         </div>
     </section>
     <section>

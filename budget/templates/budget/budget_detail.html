@@ -10,7 +10,9 @@
 {% block content %}
     <section>
         <h3>Budget Information</h3>
-        <a class="button" href="{{ budget.get_visualize_url }}">Visualize Budget</a>
+        {% if perms.budget.view_budget %}
+            <a class="button" href="{{ budget.get_visualize_url }}">Visualize Budget</a>
+        {% endif %}
 
         <table>
             <tr>
@@ -31,19 +33,29 @@
             </tr>
         </table>
         <div>
-            <a class="button" href="{{ budget.get_update_url }}">Update Budget</a>
+            {% if perms.budget.change_budget %}
+                <a class="button" href="{{ budget.get_update_url }}">Update Budget</a>
+            {% endif %}
+            {% if perms.budget.delete_budget %}
             <a class="button" href="{{ budget.get_delete_url }}">Delete Budget</a>
+            {% endif %}
         </div>
     </section>
     <section>
         <h3>Categories</h3>
-        <a class="button" href="{% url 'budget_budget_category_create_urlpattern' %}?budget_id={{ budget.pk }}">Create Category</a>
+        {% if perms.budget.add_budgetcategory %}
+            <a class="button" href="{% url 'budget_budget_category_create_urlpattern' %}?budget_id={{ budget.pk }}">Create Category</a>
+        {% endif %}
         <ul>
             {% for category in budget_categories %}
                 <li>
                     {{ category.category }}: ${{ category.amount }} &emsp;
-                    <a href="{{ category.get_update_url }}?budget_id={{ budget.pk }}">Update Category</a> &emsp;
-                    <a href="{{ category.get_delete_url }}?budget_id={{ budget.pk }}">Delete Category</a>
+                    {% if perms.budget.change_budgetcategory %}
+                        <a href="{{ category.get_update_url }}?budget_id={{ budget.pk }}">Update Category</a> &emsp;
+                    {% endif %}
+                    {% if perms.budget.delete_budgetcategory %}
+                        <a href="{{ category.get_delete_url }}?budget_id={{ budget.pk }}">Delete Category</a>
+                    {% endif %}
                 </li>
             {% empty %}
                 <li><em>There are currently no categories under this budget.</em></li>

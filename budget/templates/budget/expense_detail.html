@@ -37,8 +37,12 @@
             </tr>
         </table>
         <div>
-            <a class="button" href="{{ expense.get_update_url }}">Update Expense</a>
-            <a class="button" href="{{ expense.get_delete_url }}">Delete Expense</a>
+            {% if perms.budget.change_expense %}
+                <a class="button" href="{{ expense.get_update_url }}">Update Expense</a>
+            {% endif %}
+            {% if perms.budget.delete_expense %}
+                <a class="button" href="{{ expense.get_delete_url }}">Delete Expense</a>
+            {% endif %}
         </div>
     </section>
 {% endblock %}

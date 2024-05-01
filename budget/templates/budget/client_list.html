@@ -8,7 +8,9 @@
 {% endblock %}
 
 {% block content %}
+    {% if perms.budget.add_client %}
     <a class="button" href="{% url 'budget_client_create_urlpattern' %}">Create New Client</a>
+    {% endif %}
 
     <ul>
         {% for client in client_list %}

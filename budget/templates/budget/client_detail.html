@@ -25,8 +25,12 @@
             </tr>
         </table>
         <div>
-            <a class="button" href="{{ client.get_update_url }}">Update Client</a>
-            <a class="button" href="{{ client.get_delete_url }}">Delete Client</a>
+            {% if perms.budget.change_client %}
+                <a class="button" href="{{ client.get_update_url }}">Update Client</a>
+            {% endif %}
+            {% if perms.budget.delete_client %}
+                <a class="button" href="{{ client.get_delete_url }}">Delete Client</a>
+            {% endif %}
         </div>
     </section>
     <section>
